@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenPulse - Sign Up</title>
+    <link rel="shortcut icon" href="gp_favicon.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f9fafb;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background-color: #2B4C7E;
+            padding: 1rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .brand {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a:hover {
+            color: #e5e7eb;
+        }
+
+        .container {
+            max-width: 32rem;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.5rem;
+            padding-left: 2.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #2B4C7E;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .submit-btn:hover {
+            background-color: #1e3a8a;
+        }
+
+        .login-section {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .login-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="gp_logo.png" alt="GreenPulse Logo" class="logo" width="40px">
+                <span class="brand">GreenPulse</span>
+            </div>
+            <div class="nav-links">
+                <a href="greenpulse.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contatct_support.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Company Sign Up</h1>
+                <p class="card-subtitle">Create your company account and start managing your fleet today!</p>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label class="form-label" for="company">Company Name</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🏢</span>
+                        <input type="text" id="company" class="form-input" placeholder="Enter Company Name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">E-mail</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📧</span>
+                        <input type="email" id="email" class="form-input" placeholder="xyz@gmail.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="contact">Contact</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📞</span>
+                        <input type="tel" id="contact" class="form-input" placeholder="Enter Your Contact">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="address">Address</label>
+                    <textarea id="address" class="form-textarea" placeholder="Enter Company Address"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="password" class="form-input" placeholder="Enter Password">
+                    </div>
+                </div>
+
+                <a href="greenpulse.html">
+                    <button type="button" class="submit-btn">Sign Up</button>
+                </a>
+
+                <div class="login-section">
+                    Already have an account? <a href="#" class="login-link">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

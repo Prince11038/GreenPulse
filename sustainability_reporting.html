@@ -1,0 +1,126 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenpulse - Sustainability Reporting</title>
+    <link rel="stylesheet" href="sustainability_reporting.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="shortcut icon" href="gp_favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="gp_logo.png" alt="greenpulse logo" width="100%" style="border-radius: 15px;">
+                </div>
+                <span class="logo-text">Greenpulse</span>
+            </div>
+            <nav class="nav-menu">
+                
+                <a href="greenpulse.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="#" class="active" style="color: white" >Dashboard</a>
+                <a href="contatct_support.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-icon"></div>
+            <h1>Sustainability Reporting</h1>
+            <p>Track, measure, and optimize your environmental impact with our comprehensive sustainability reporting
+                platform. Turn data into actionable insights and showcase your commitment to a greener future.</p>
+        </section>
+
+        <!-- Metrics Grid -->
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="icon co2-icon"></div>
+                <span class="metric-title">CO₂ Reduction</span>
+                <div class="metric-value">875 kg</div>
+                <div class="metric-change">↑ 12.4% vs Last Month</div>
+            </div>
+            <div class="metric-card">
+                <div class="icon eco-icon"></div>
+                <span class="metric-title">Eco Reporting</span>
+                <div class="metric-value">89%</div>
+                <div class="metric-change">↑ 8.7% vs Last Month</div>
+            </div>
+            <div class="metric-card">
+                <div class="icon compliance-icon"></div>
+                <span class="metric-title">Compliance Score</span>
+                <div class="metric-value">95.2%</div>
+                <div class="metric-change">↑ 5.2% vs Last Month</div>
+            </div>
+            <div class="metric-card">
+                <div class="icon esg-icon"></div>
+                <span class="metric-title">ESG Rating</span>
+                <div class="metric-value">A+</div>
+                <div class="metric-change">↑ 10.5% vs Last Year</div>
+            </div>
+        </section>
+
+        <!-- Key Features -->
+        <section class="features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon tracking-icon"><img src="comprehensive_data_tracking.png" alt="Data Tracking icon" width="65px" style="border-radius: 40px;" ></div>
+                    <h3>Comprehensive Data Tracking</h3>
+                    <p>Track carbon emissions, water usage, waste management, and energy consumption in real-time with
+                        automated data collection across all your facilities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon reports-icon"><img src="compliance_reports.png" alt="Compliance Reports icon" width="70px" style="border-radius: 40px;" ></div>
+                    <h3>Compliance Reports</h3>
+                    <p>Automatically generate compliance reports for GRI, SASB, TCFD, and other sustainability
+                        frameworks with just a few clicks.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon analytics-icon"><img src="predictive_analysis.png" alt="analysis icon" width="70px" style="border-radius: 40px;" ></div>
+                    <h3>Predictive Analytics</h3>
+                    <p>Leverage AI-powered insights to predict future sustainability metrics and identify optimization
+                        opportunities before issues arise.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Monthly Carbon Savings</h2>
+                    <div class="chart-controls">
+                        <span>This Year</span>
+                        <button class="export-btn">Export</button>
+                    </div>
+                </div>
+                <canvas id="carbonChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Sustainability Performance</h2>
+                    <div class="chart-controls">
+                        <span>This Month</span>
+                        <button class="export-btn">Export</button>
+                    </div>
+                </div>
+                <canvas id="sustainabilityChart"></canvas>
+                <p class="performance-note">Your sustainability score is <span>23% above</span> the industry average.
+                    Emissions and supply chain areas have the highest improvement potential.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="sustainability_reporting.js"></script>
+</body>
+
+</html>

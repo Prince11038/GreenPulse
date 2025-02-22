@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenPulse Dashboard</title>
+    <link rel="shortcut icon" href="gp_favicon.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #1e3a8a;
+            color: white;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #93c5fd;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            color: #4ade80;
+        }
+
+        /* Dashboard Content Styles */
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chart-container {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+
+        .timeline-container {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .timeline-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .timeline-item.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .timeline-item h3 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item h4 {
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: #6b7280;
+        }
+
+        .kpi-card {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        #startAnalysis {
+            padding: 0.75rem 1.5rem;
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        #startAnalysis:hover {
+            background-color: #16a34a;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="gp_logo.png" alt="GreenPulse" width="34px" style="border-radius: 20px;">
+            </div>
+            <span class="brand-name">GreenPulse</span>
+        </div>
+        <div class="nav-links">
+            <a href="greenpulse.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="#" class="nav-link" style="color: #22c55e;">Optemization</a>
+            <a href="contatct_support.html" class="nav-link">Contact</a>
+
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container">
+        <div id="timelineContainer" class="timeline-container"></div>
+
+        <div class="chart-container">
+            <canvas id="performanceChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="fleetChart"></canvas>
+        </div>
+
+        <button id="startAnalysis">Start Analysis</button>
+    </div>
+
+    <script>
+        // Data
+        const timelineData = [
+            { date: '2024 Q1', title: 'Initial EV Fleet Integration', description: '25% fleet conversion' },
+            { date: '2024 Q2', title: 'Charging Infrastructure', description: 'Installation complete' },
+            { date: '2024 Q3', title: 'Route Optimization', description: 'AI-powered routing' },
+            { date: '2024 Q4', title: 'Full Fleet Transition', description: '75% completion target' }
+        ];
+
+        const chartData = {
+            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            traditional: [250, 245, 260, 240, 255, 265],
+            electric: [100, 95, 98, 90, 92, 88]
+        };
+
+        // Initialize Timeline
+        function initializeTimeline() {
+            const container = document.getElementById('timelineContainer');
+            timelineData.forEach((item, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${index === 0 ? 'active' : ''}`;
+                timelineItem.innerHTML = `
+                    <h3>${item.date}</h3>
+                    <h4>${item.title}</h4>
+                    <p>${item.description}</p>
+                `;
+                container.appendChild(timelineItem);
+            });
+        }
+
+        // Initialize Charts
+        function initializeCharts() {
+            // Performance Chart
+            const perfCtx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(perfCtx, {
+                type: 'line',
+                data: {
+                    labels: chartData.months,
+                    datasets: [
+                        {
+                            label: 'Traditional Vehicles',
+                            data: chartData.traditional,
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Electric Vehicles',
+                            data: chartData.electric,
+                            borderColor: '#22c55e',
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'CO2 Emissions (g/km)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Fleet Distribution Chart
+            const fleetCtx = document.getElementById('fleetChart').getContext('2d');
+            new Chart(fleetCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Electric', 'Hybrid', 'Traditional'],
+                    datasets: [{
+                        data: [35, 40, 25],
+                        backgroundColor: [
+                            '#22c55e',
+                            '#3b82f6',
+                            '#ef4444'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Add Interactivity
+        function addInteractivity() {
+            // Timeline rotation
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            let activeIndex = 0;
+            setInterval(() => {
+                timelineItems.forEach(item => item.classList.remove('active'));
+                timelineItems[activeIndex].classList.add('active');
+                activeIndex = (activeIndex + 1) % timelineItems.length;
+            }, 5000);
+
+            // KPI Cards hover effect
+            document.querySelectorAll('.kpi-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+
+            // CTA Button click
+            document.getElementById('startAnalysis').addEventListener('click', () => {
+                alert('Starting analysis... This feature will be implemented soon!');
+            });
+        }
+
+        // Initialize everything when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTimeline();
+            initializeCharts();
+            addInteractivity();
+        });
+    </script>
+</body>
+
+</html>

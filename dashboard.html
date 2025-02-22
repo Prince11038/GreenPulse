@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navigation Styles */
+        .nav-container {
+            background-color: #1e4b7a;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-section h1{
+            color: white;
+        }
+
+        .logo-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Companies Section Styles */
+        .companies-section {
+            padding: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .section-title {
+            color: #008744;
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+
+        .company-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .company-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .company-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 15px;
+            color: #008744;
+        }
+
+        .company-name {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .graph {
+            width: 100%;
+            height: 100px;
+            margin: 15px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .graph svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .graph .axis-label {
+            position: absolute;
+            left: -5px;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .graph path {
+            stroke: #008744;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .graph circle {
+            fill: #008744;
+            r: 3;
+        }
+
+        .user-base {
+            padding-top: 14px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #008744;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* Map Styles */
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .map-section {
+            padding: 20px 40px 40px 40px;
+        }
+
+        .graph .y-labels {
+            position: absolute;
+            left: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #999;
+            font-size: 10px;
+            padding: 5px 0;
+        }
+
+        .graph .x-labels {
+            position: absolute;
+            bottom: -20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            color: #999;
+            font-size: 10px;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-container">
+        <div class="logo-section">
+            <img src="gp_logo.png" alt="GreenPulse Logo" class="logo-img">
+            <h1>GreenPulse</h1>
+        </div>
+        <div class="nav-links">
+            <a href="greenpulse.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contatct_support.html">Contact</a>
+        </div>
+    </nav>
+
+   
+    <section class="map-section">
+        <div id="map"></div>
+    </section>
+
+    <!-- Companies Section -->
+    <section class="companies-section">
+        <h1 class="section-title">TOP INDIAN COMPANIES</h1>
+        <div class="company-cards">
+            <div class="company-card">
+                <svg class="company-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M21.9 13.5C21.8 13.3 21.7 13.1 21.5 13L19.2 11.7L21.5 10.4C21.7 10.3 21.8 10.1 21.9 9.9C22 9.7 22 9.4 21.9 9.2C21.8 9 21.7 8.8 21.5 8.7L12.7 3.3C12.5 3.1 12.2 3.1 12 3.1C11.8 3.1 11.5 3.1 11.3 3.3L2.5 8.7C2.3 8.8 2.2 9 2.1 9.2C2 9.4 2 9.7 2.1 9.9C2.2 10.1 2.3 10.3 2.5 10.4L4.8 11.7L2.5 13C2.3 13.1 2.2 13.3 2.1 13.5C2 13.7 2 14 2.1 14.2C2.2 14.4 2.3 14.6 2.5 14.7L11.3 20.1C11.5 20.3 11.8 20.3 12 20.3C12.2 20.3 12.5 20.3 12.7 20.1L21.5 14.7C21.7 14.6 21.8 14.4 21.9 14.2C22 14 22 13.7 21.9 13.5Z"/>
+                </svg>
+                <h2 class="company-name">Amazon India</h2>
+                <div class="graph">
+                    <div class="y-labels">
+                        <span>120</span>
+                        <span>90</span>
+                        <span>60</span>
+                    </div>
+                    <svg>
+                        <path d="M40,70 L100,50 L160,40 L220,30"></path>
+                        <circle cx="40" cy="70" r="3"></circle>
+                        <circle cx="100" cy="50" r="3"></circle>
+                        <circle cx="160" cy="40" r="3"></circle>
+                        <circle cx="220" cy="30" r="3"></circle>
+                    </svg>
+                    <div class="x-labels">
+                        <span>Q1</span>
+                        <span>Q2</span>
+                        <span>Q3</span>
+                        <span>Q4</span>
+                    </div>
+                </div>
+                <div class="user-base">User Base: 150M+</div>
+                <div class="progress-bar" style="width: 90%;"></div>
+            </div>
+            <div class="company-card">
+                <svg class="company-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M19 6H17C17 3.2 14.8 1 12 1S7 3.2 7 6H5C3.9 6 3 6.9 3 8V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V8C21 6.9 20.1 6 19 6M12 3C13.7 3 15 4.3 15 6H9C9 4.3 10.3 3 12 3M19 20H5V8H19V20M12 12C10.3 12 9 10.7 9 9H7C7 11.8 9.2 14 12 14S17 11.8 17 9H15C15 10.7 13.7 12 12 12Z"/>
+                </svg>
+                <h2 class="company-name">Flipkart</h2>
+                <div class="graph">
+                    <div class="y-labels">
+                        <span>110</span>
+                        <span>90</span>
+                        <span>70</span>
+                    </div>
+                    <svg>
+                        <path d="M40,70 L100,55 L160,45 L220,35"></path>
+                        <circle cx="40" cy="70" r="3"></circle>
+                        <circle cx="100" cy="55" r="3"></circle>
+                        <circle cx="160" cy="45" r="3"></circle>
+                        <circle cx="220" cy="35" r="3"></circle>
+                    </svg>
+                    <div class="x-labels">
+                        <span>Q1</span>
+                        <span>Q2</span>
+                        <span>Q3</span>
+                        <span>Q4</span>
+                    </div>
+                </div>
+                <div class="user-base">User Base: 120M+</div>
+                <div class="progress-bar" style="width: 80%;"></div>
+            </div>
+            <div class="company-card">
+                <svg class="company-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12,16L19.36,10.27L21,9L12,2L3,9L4.63,10.27M12,18.54L4.62,12.81L3,14.07L12,21.07L21,14.07L19.37,12.8L12,18.54Z"/>
+                </svg>
+                <h2 class="company-name">Reliance Logistics</h2>
+                <div class="graph">
+                    <div class="y-labels">
+                        <span>100</span>
+                        <span>80</span>
+                        <span>60</span>
+                    </div>
+                    <svg>
+                        <path d="M40,60 L100,50 L160,40 L220,30"></path>
+                        <circle cx="40" cy="60" r="3"></circle>
+                        <circle cx="100" cy="50" r="3"></circle>
+                        <circle cx="160" cy="40" r="3"></circle>
+                        <circle cx="220" cy="30" r="3"></circle>
+                    </svg>
+                    <div class="x-labels">
+                        <span>Q1</span>
+                        <span>Q2</span>
+                        <span>Q3</span>
+                        <span>Q4</span>
+                    </div>
+                </div>
+                <div class="user-base">User Base: 100M+</div>
+                <div class="progress-bar" style="width: 70%;"></div>
+            </div>
+            <div class="company-card">
+                <svg class="company-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8H17V4H3C1.89,4 1,4.89 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z"/>
+                </svg>
+                <h2 class="company-name">Delhivery</h2>
+                <div class="graph">
+                    <div class="y-labels">
+                        <span>80</span>
+                        <span>65</span>
+                        <span>50</span>
+                    </div>
+                    <svg>
+                        <path d="M40,50 L100,45 L160,35 L220,25"></path>
+                        <circle cx="40" cy="50" r="3"></circle>
+                        <circle cx="100" cy="45" r="3"></circle>
+                        <circle cx="160" cy="35" r="3"></circle>
+                        <circle cx="220" cy="25" r="3"></circle>
+                    </svg>
+                    <div class="x-labels">
+                        <span>Q1</span>
+                        <span>Q2</span>
+                        <span>Q3</span>
+                        <span>Q4</span>
+                    </div>
+                </div>
+                <div class="user-base">User Base: 80M+</div>
+                <div class="progress-bar" style="width: 60%;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Company locations
+        var locations = [
+            { coords: [28.6139, 77.2090], company: "Amazon India", users: "150M+", city: "Delhi" },
+            { coords: [12.9716, 77.5946], company: "Flipkart", users: "120M+", city: "Bangalore" },
+            { coords: [19.0760, 72.8777], company: "Reliance Logistics", users: "100M+", city: "Mumbai" },
+            { coords: [28.7041, 77.1025], company: "Delhivery", users: "80M+", city: "Delhi" }
+        ];
+
+        // Add markers
+        locations.forEach(function(location) {
+            L.marker(location.coords).addTo(map)
+                .bindPopup(`<b>${location.company}</b><br>City: ${location.city}<br>User Base: ${location.users}`);
+        });
+    </script>
+</body>
+</html>
