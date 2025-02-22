@@ -1,0 +1,291 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #F5F5F5;
+}
+
+.header {
+  background-color: #1A9D55;
+  color: white;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.cart-btn {
+  background-color: white;
+  color: #333;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.order-items {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-total {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  padding: 15px 0 0;
+}
+
+.delivery-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.delivery-option {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.delivery-option:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.delivery-option:nth-child(1):hover {
+  border: 2px solid #1A9D55;
+}
+
+.delivery-option:nth-child(2):hover {
+  border: 2px solid #e67e22;
+}
+
+.delivery-option:nth-child(3):hover {
+  border: 2px solid #27ae60;
+}
+
+.eco-friendly {
+  background-color: #1A9D55;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.delivery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.delivery-name {
+  font-weight: bold;
+}
+
+.delivery-info {
+  font-size: 14px;
+  color: #555;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.emissions {
+  background-color: #e6f4ea;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1A9D55;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.produces {
+  background-color: #fff9e6;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #b28500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.order-button {
+  background-color: #1976d2;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.order-button:hover {
+  background-color: #1565c0;
+}
+
+.check-mark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #1A9D55;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #1A9D55;
+  font-size: 12px;
+}
+
+.delivery-option:hover .check-mark {
+  display: flex;
+}
+
+.recycling-option {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.recycling-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #1A9D55;
+}
+
+.recycling-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.recycling-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.custom-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1A9D55;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  margin-top: 2px;
+}
+
+.custom-checkbox:checked {
+  background-color: #1A9D55;
+}
+
+.custom-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  left: 4px;
+  top: -1px;
+}
+
+.checkbox-label {
+  font-size: 14px;
+  flex: 1;
+}
+
+.recycling-rewards {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #e6f4ea;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.recycling-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #1A9D55;
+  font-weight: 500;
+}
+
